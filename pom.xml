@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example</groupId>
+  <artifactId>backend-crm</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>backend-crm</name>
+  <description>Demo project for Spring Boot</description>
+
+  <parent>
+    <groupId>com.solusinegeri</groupId>
+    <artifactId>java-lib</artifactId>
+    <version>0.0.2</version>
+  </parent>
+
+  <dependencies>
+    <!-- spring framework dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-bootstrap</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>command</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>mongodb</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>kafka</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>security</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <!--    <dependency>-->
+    <!--      <groupId>com.solusinegeri</groupId>-->
+    <!--      <artifactId>aws-storage</artifactId>-->
+    <!--      <version>0.0.2</version>-->
+    <!--    </dependency>-->
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>swagger</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>web</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>web-client</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.10.10</version>
+    </dependency>
+    <!-- test dependencies -->
+    <dependency>
+      <groupId>com.solusinegeri</groupId>
+      <artifactId>test</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>5.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>3.0.11.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.xhtmlrenderer</groupId>
+      <artifactId>flying-saucer-pdf</artifactId>
+      <version>9.1.20</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>budifaruqi-java-lib</id>
+      <url>https://maven.pkg.github.com/budifaruqi/java-lib</url>
+      <releases>
+        <checksumPolicy>ignore</checksumPolicy>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
