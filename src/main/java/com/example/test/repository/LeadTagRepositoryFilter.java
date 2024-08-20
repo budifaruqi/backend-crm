@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface LeadTagRepositoryFilter {
 
-  Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String tagName, Pageable pageable);
+  Mono<Long> countAllByDeletedFalseAndFilter(String companyGroupId, String tagName, Pageable pageable);
 
-  Flux<LeadTag> findAllByDeletedFalseAndFilter(String companyId, String tagName, Pageable pageable);
+  Flux<LeadTag> findAllByDeletedFalseAndFilter(String companyGroupId, String tagName, Pageable pageable);
 }

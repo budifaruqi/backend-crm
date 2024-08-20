@@ -3,6 +3,7 @@ package com.example.test.command.impl.partner;
 import com.example.test.command.model.partner.GetPartnerByIdCommandRequest;
 import com.example.test.command.partner.GetPartnerByIdCommand;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.PartnerRepository;
 import com.example.test.repository.model.Partner;
 import com.example.test.web.model.response.partner.GetPartnerWebResponse;
@@ -27,7 +28,7 @@ public class GetPartnerByIdCommandImpl implements GetPartnerByIdCommand {
 
   private Mono<Partner> findTag(GetPartnerByIdCommandRequest request) {
     return partnerRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.PARTNER_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARTNER_NOT_EXIST)));
   }
 
   private GetPartnerWebResponse toGetWebResponse(Partner partner) {

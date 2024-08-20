@@ -5,14 +5,12 @@ import com.example.test.command.model.lead.CreateLeadCommandRequest;
 import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.enums.LeadStatus;
 import com.example.test.common.enums.PotentialLeadStatus;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.LeadRepository;
 import com.example.test.repository.LeadTagRepository;
 import com.example.test.repository.PartnerRepository;
-import com.example.test.repository.PotentialLeadRepository;
 import com.example.test.repository.model.Lead;
 import com.example.test.repository.model.LeadTag;
-import com.example.test.repository.model.PotentialLead;
-import com.solusinegeri.validation.model.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,15 +24,13 @@ public class CreateLeadCommandImpl implements CreateLeadCommand {
 
   private final LeadTagRepository leadTagRepository;
 
-  private final PotentialLeadRepository potentialLeadRepository;
 
   private final LeadRepository leadRepository;
 
   public CreateLeadCommandImpl(PartnerRepository partnerRepository, LeadTagRepository leadTagRepository,
-      PotentialLeadRepository potentialLeadRepository, LeadRepository leadRepository) {
+      LeadRepository leadRepository) {
     this.partnerRepository = partnerRepository;
     this.leadTagRepository = leadTagRepository;
-    this.potentialLeadRepository = potentialLeadRepository;
     this.leadRepository = leadRepository;
   }
 
@@ -50,16 +46,16 @@ public class CreateLeadCommandImpl implements CreateLeadCommand {
   private Mono<PotentialLead> checkPotentialLead(CreateLeadCommandRequest request) {
     return potentialLeadRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(),
             request.getPotentialLeadId())
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.POTENTIAL_LEAD_NOT_EXIST)))
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.POTENTIAL_LEAD_NOT_EXIST)))
         .filter(potentialLead -> potentialLead.getStatus() == PotentialLeadStatus.APPROVED)
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.POTENTIAL_LEAD_STATUS_NOT_VALID)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.POTENTIAL_LEAD_STATUS_NOT_VALID)));
   }
 
   private Mono<Boolean> checkExistLead(PotentialLead potentialLead, CreateLeadCommandRequest request) {
     return leadRepository.existsByDeletedFalseAndCompanyIdAndPotentialLeadId(request.getCompanyId(),
             potentialLead.getId())
         .filter(s -> !s)
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.POTENTIAL_LEAD_ALREADY_USED)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.POTENTIAL_LEAD_ALREADY_USED)));
   }
 
   private Mono<List<String>> checkTag(CreateLeadCommandRequest request) {
@@ -70,8 +66,8 @@ public class CreateLeadCommandImpl implements CreateLeadCommand {
   }
 
   private Mono<LeadTag> findTag(CreateLeadCommandRequest request, String tagId) {
-    return leadTagRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), tagId)
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.TAG_NOT_EXIST)));
+    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), tagId)
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.TAG_NOT_EXIST)));
   }
 
   private Lead toLead(PotentialLead potentialLead, List<String> tags, CreateLeadCommandRequest request) {

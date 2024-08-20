@@ -21,9 +21,7 @@ public class LeadTag extends BaseEntity {
   @Id
   private String id;
 
-  private String companyId;
-
-  private String partnerId;
+  private String companyGroupId;
 
   private String name;
 

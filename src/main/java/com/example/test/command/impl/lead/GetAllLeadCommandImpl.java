@@ -81,7 +81,7 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
   }
 
   private Mono<LeadTag> findTag(Lead request, String tagId) {
-    return leadTagRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), tagId)
+    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), tagId)
         .switchIfEmpty(Mono.fromSupplier(() -> LeadTag.builder()
             .name(ErrorCode.TAG_NOT_EXIST)
             .build()));

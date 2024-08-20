@@ -24,9 +24,7 @@ public class Lead extends BaseEntity {
   @Id
   private String id;
 
-  private String companyId;
-
-  private String potentialLeadId;
+  private String companyGroupId;
 
   private String name;
 

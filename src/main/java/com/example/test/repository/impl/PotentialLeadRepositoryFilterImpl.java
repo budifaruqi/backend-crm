@@ -2,8 +2,6 @@ package com.example.test.repository.impl;
 
 import com.example.test.common.constant.CollectionName;
 import com.example.test.common.enums.PotentialLeadStatus;
-import com.example.test.repository.PotentialLeadRepositoryFilter;
-import com.example.test.repository.model.PotentialLead;
 import com.solusinegeri.mongodb.helper.QueryBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;

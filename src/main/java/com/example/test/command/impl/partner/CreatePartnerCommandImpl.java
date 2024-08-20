@@ -3,6 +3,7 @@ package com.example.test.command.impl.partner;
 import com.example.test.command.model.partner.CreatePartnerCommandRequest;
 import com.example.test.command.partner.CreatePartnerCommand;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.PartnerRepository;
 import com.example.test.repository.model.Partner;
 import com.example.test.web.model.response.partner.GetPartnerWebResponse;
@@ -34,7 +35,7 @@ public class CreatePartnerCommandImpl implements CreatePartnerCommand {
         .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
             .build()))
         .filter(s -> !Objects.equals(s.getName(), request.getName()))
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.NAME_ALREADY_USED)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.NAME_ALREADY_USED)));
   }
 
   private Partner toLeadTag(CreatePartnerCommandRequest request) {

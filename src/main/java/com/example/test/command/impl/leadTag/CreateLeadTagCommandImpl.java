@@ -3,6 +3,7 @@ package com.example.test.command.impl.leadTag;
 import com.example.test.command.leadTag.CreateLeadTagCommand;
 import com.example.test.command.model.leadTag.CreateLeadTagCommandRequest;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.LeadTagRepository;
 import com.example.test.repository.model.LeadTag;
 import com.example.test.web.configuration.CustomAuditorAware;
@@ -34,16 +35,16 @@ public class CreateLeadTagCommandImpl implements CreateLeadTagCommand {
   }
 
   private Mono<LeadTag> checkName(CreateLeadTagCommandRequest request) {
-    return leadTagRepository.findByDeletedFalseAndCompanyIdAndName(request.getCompanyId(), request.getName())
+    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndName(request.getCompanyGroupId(), request.getName())
         .switchIfEmpty(Mono.fromSupplier(() -> LeadTag.builder()
             .build()))
         .filter(s -> !Objects.equals(s.getName(), request.getName()))
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.NAME_ALREADY_USED)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.NAME_ALREADY_USED)));
   }
 
   private LeadTag toLeadTag(CreateLeadTagCommandRequest request) {
     return LeadTag.builder()
-        .companyId(request.getCompanyId())
+        .companyGroupId(request.getCompanyGroupId())
         .name(request.getName())
         .description(request.getDescription())
         .build();
@@ -52,7 +53,7 @@ public class CreateLeadTagCommandImpl implements CreateLeadTagCommand {
   private GetLeadTagWebResponse toGetWebResponse(LeadTag leadTag) {
     return GetLeadTagWebResponse.builder()
         .id(leadTag.getId())
-        .companyId(leadTag.getCompanyId())
+        .companyGroupId(leadTag.getCompanyGroupId())
         .name(leadTag.getName())
         .description(leadTag.getDescription())
         .build();

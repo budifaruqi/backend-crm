@@ -4,6 +4,7 @@ import com.example.test.command.model.partner.DeletePartnerByIdCommandRequest;
 import com.example.test.command.model.partner.UpdatePartnerByIdCommandRequest;
 import com.example.test.command.partner.DeletePartnerByIdCommand;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.PartnerRepository;
 import com.example.test.repository.model.Partner;
 import com.solusinegeri.validation.model.exception.ValidationException;
@@ -31,7 +32,7 @@ public class DeletePartnerByIdCommandImpl implements DeletePartnerByIdCommand {
 
   private Mono<Partner> findPartner(DeletePartnerByIdCommandRequest request) {
     return partnerRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.PARTNER_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARTNER_NOT_EXIST)));
   }
 
   private Mono<Partner> checkRequest(UpdatePartnerByIdCommandRequest request) {
@@ -39,7 +40,7 @@ public class DeletePartnerByIdCommandImpl implements DeletePartnerByIdCommand {
         .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
             .build()))
         .filter(s -> s.getId() == null || Objects.equals(s.getId(), request.getId()))
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.NAME_ALREADY_USED)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.NAME_ALREADY_USED)));
   }
 
   private Partner deletePartner(Partner partner, DeletePartnerByIdCommandRequest request) {

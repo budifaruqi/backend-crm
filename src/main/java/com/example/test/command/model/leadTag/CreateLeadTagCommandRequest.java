@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class CreateLeadTagCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   @NotBlank
   private String name;

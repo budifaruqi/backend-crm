@@ -3,6 +3,7 @@ package com.example.test.command.impl.lead;
 import com.example.test.command.lead.GetLeadByIdCommand;
 import com.example.test.command.model.lead.GetLeadByIdCommandRequest;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.common.vo.TagVO;
 import com.example.test.repository.LeadRepository;
 import com.example.test.repository.LeadTagRepository;
@@ -44,7 +45,7 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
 
   private Mono<Lead> getLead(GetLeadByIdCommandRequest request) {
     return leadRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.LEAD_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.LEAD_NOT_EXIST)));
   }
 
   private Mono<Partner> getPartner(Lead potentialLead) {
@@ -63,7 +64,7 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
   }
 
   private Mono<LeadTag> findTag(Lead request, String tagId) {
-    return leadTagRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), tagId)
+    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), tagId)
         .switchIfEmpty(Mono.fromSupplier(() -> LeadTag.builder()
             .name(ErrorCode.TAG_NOT_EXIST)
             .build()));

@@ -3,6 +3,7 @@ package com.example.test.command.impl.partner;
 import com.example.test.command.model.partner.UpdatePartnerByIdCommandRequest;
 import com.example.test.command.partner.UpdatePartnerByIdCommand;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.PartnerRepository;
 import com.example.test.repository.model.Partner;
 import com.example.test.web.model.response.partner.GetPartnerWebResponse;
@@ -32,7 +33,7 @@ public class UpdatePartnerByIdCommandImpl implements UpdatePartnerByIdCommand {
 
   private Mono<Partner> findPartner(UpdatePartnerByIdCommandRequest request) {
     return partnerRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.PARTNER_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARTNER_NOT_EXIST)));
   }
 
   private Mono<Partner> checkRequest(UpdatePartnerByIdCommandRequest request) {
@@ -40,7 +41,7 @@ public class UpdatePartnerByIdCommandImpl implements UpdatePartnerByIdCommand {
         .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
             .build()))
         .filter(s -> s.getId() == null || Objects.equals(s.getId(), request.getId()))
-        .switchIfEmpty(Mono.error(new ValidationException(ErrorCode.NAME_ALREADY_USED)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.NAME_ALREADY_USED)));
   }
 
   private Partner updatePartner(Partner partner, UpdatePartnerByIdCommandRequest request) {

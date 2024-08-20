@@ -1,7 +1,7 @@
 package com.example.test.repository.model;
 
 import com.example.test.common.constant.CollectionName;
-import com.example.test.common.enums.PotentialLeadStatus;
+import com.example.test.common.enums.BankType;
 import com.solusinegeri.data.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,30 +11,22 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
-@Document(collection = CollectionName.POTENTIAL_LEAD)
+@Document(collection = CollectionName.LEAD)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PotentialLead extends BaseEntity {
-
+public class Bank extends BaseEntity {
   @Id
   private String id;
 
-  private String companyId;
-
-  private String partnerId;
+  private String companyGroupId;
 
   private String name;
 
-  private String phone;
+  private BankType type;
 
-  private String email;
+  private String parentId;
 
-  private List<String> requirementList;
-
-  private PotentialLeadStatus status;
 }

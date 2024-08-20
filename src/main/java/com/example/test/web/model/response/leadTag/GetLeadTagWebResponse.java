@@ -13,7 +13,7 @@ public class GetLeadTagWebResponse {
 
   private String id;
 
-  private String companyId;
+  private String companyGroupId;
 
   private String name;
 

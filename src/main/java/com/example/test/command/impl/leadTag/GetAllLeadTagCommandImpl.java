@@ -29,7 +29,7 @@ public class GetAllLeadTagCommandImpl implements GetAllLeadTagCommand {
   }
 
   private Mono<Long> count(GetAllLeadTagCommandRequest request) {
-    return leadTagRepository.countAllByDeletedFalseAndFilter(request.getCompanyId(), request.getName(),
+    return leadTagRepository.countAllByDeletedFalseAndFilter(request.getCompanyGroupId(), request.getName(),
         request.getPageable());
   }
 
@@ -40,14 +40,14 @@ public class GetAllLeadTagCommandImpl implements GetAllLeadTagCommand {
   }
 
   private Flux<LeadTag> getPotentialLead(GetAllLeadTagCommandRequest request) {
-    return leadTagRepository.findAllByDeletedFalseAndFilter(request.getCompanyId(), request.getName(),
+    return leadTagRepository.findAllByDeletedFalseAndFilter(request.getCompanyGroupId(), request.getName(),
         request.getPageable());
   }
 
   private GetLeadTagWebResponse toGetWebResponse(LeadTag leadTag) {
     return GetLeadTagWebResponse.builder()
         .id(leadTag.getId())
-        .companyId(leadTag.getCompanyId())
+        .companyGroupId(leadTag.getCompanyGroupId())
         .name(leadTag.getName())
         .description(leadTag.getDescription())
         .build();

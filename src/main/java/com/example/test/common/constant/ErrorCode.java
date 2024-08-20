@@ -12,6 +12,8 @@ public final class ErrorCode {
 
   public static final String NAME_ALREADY_USED = "NAME_ALREADY_USED";
 
+  public static final String PARENT_ID_MUST_NOT_BLANK = "PARENT_ID_MUST_NOT_BLANK";
+
   public static final String PARTNER_ALREADY_USED = "PARTNER_ALREADY_USED";
 
   public static final String PARTNER_NOT_EXIST = "PARTNER_NOT_EXIST";

@@ -23,21 +23,21 @@ public class LeadTagRepositoryFilterImpl implements LeadTagRepositoryFilter {
   }
 
   @Override
-  public Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String tagName, Pageable pageable) {
-    Query query = getQuery(companyId, tagName, null);
+  public Mono<Long> countAllByDeletedFalseAndFilter(String companyGroupId, String tagName, Pageable pageable) {
+    Query query = getQuery(companyGroupId, tagName, null);
     return reactiveMongoTemplate.count(query, LeadTag.class, CollectionName.LEAD_TAG);
   }
 
   @Override
-  public Flux<LeadTag> findAllByDeletedFalseAndFilter(String companyId, String tagName, Pageable pageable) {
-    Query query = getQuery(companyId, tagName, pageable);
+  public Flux<LeadTag> findAllByDeletedFalseAndFilter(String companyGroupId, String tagName, Pageable pageable) {
+    Query query = getQuery(companyGroupId, tagName, pageable);
     return reactiveMongoTemplate.find(query, LeadTag.class, CollectionName.LEAD_TAG);
   }
 
-  private Query getQuery(String companyId, String name, Pageable pageable) {
+  private Query getQuery(String companyGroupId, String name, Pageable pageable) {
     Query query = QueryBuilder.create()
         .andEqual("deleted", false)
-        .andEqual("companyId", companyId)
+        .andEqual("companyGroupId", companyGroupId)
         .andLikeIgnoreCase("name", name)
         .build();
 

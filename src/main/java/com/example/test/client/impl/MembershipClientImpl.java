@@ -5,6 +5,7 @@ import com.example.test.client.model.request.ValidatePrivilegeClientRequest;
 import com.example.test.client.model.response.AuthenticationClientResponse;
 import com.example.test.client.model.response.DetailClientResponse;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.solusinegeri.common.model.exception.ForbiddenException;
 import com.solusinegeri.common.model.exception.UnauthorizedException;
 import com.solusinegeri.common.service.JsonService;
@@ -73,7 +74,7 @@ public class MembershipClientImpl extends BaseWebClient implements MembershipCli
     return clientResponse -> clientResponse.bodyToMono(Object.class)
         .filter(Objects::nonNull)
         .doOnNext(r -> log.error(jsonService.map(r)))
-        .map(errorResponse -> new ValidationException(msg));
+        .map(errorResponse -> new MicroserviceValidationException(msg));
   }
 
   private Function<ClientResponse, Mono<? extends Throwable>> toErrorForbiddenClientResponse() {
