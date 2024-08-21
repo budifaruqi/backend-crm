@@ -65,9 +65,8 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
         .filter(lead -> new HashSet<>(lead.getTags()).containsAll(request.getTagIds()));
   }
 
-  private Mono<Partner> getPartner(Lead potentialLead) {
-    return partnerRepository.findByDeletedFalseAndCompanyIdAndId(potentialLead.getCompanyId(),
-            potentialLead.getPartnerId())
+  private Mono<Partner> getPartner(Lead lead) {
+    return partnerRepository.findByDeletedFalseAndCompanyIdAndId(lead.getCompanyGroupId(), lead.getPartnerId())
         .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
             .name(ErrorCode.PARTNER_NOT_EXIST)
             .build()));
@@ -81,7 +80,7 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
   }
 
   private Mono<LeadTag> findTag(Lead request, String tagId) {
-    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), tagId)
+    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), tagId)
         .switchIfEmpty(Mono.fromSupplier(() -> LeadTag.builder()
             .name(ErrorCode.TAG_NOT_EXIST)
             .build()));
@@ -97,8 +96,7 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
   private GetLeadWebResponse toGetWebResponse(Lead lead, Partner partner, List<TagVO> tagVOS) {
     return GetLeadWebResponse.builder()
         .id(lead.getId())
-        .companyId(lead.getCompanyId())
-        .potentialLeadId(lead.getPotentialLeadId())
+        .potentialLeadId(lead.getCompanyGroupId())
         .name(lead.getName())
         .picName(lead.getPicName())
         .picPhone(lead.getPicPhone())

@@ -11,13 +11,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = CollectionName.LEAD)
+@Document(collection = CollectionName.BANK)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Bank extends BaseEntity {
+
   @Id
   private String id;
 
@@ -28,5 +29,4 @@ public class Bank extends BaseEntity {
   private BankType type;
 
   private String parentId;
-
 }

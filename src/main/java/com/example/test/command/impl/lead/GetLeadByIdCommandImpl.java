@@ -12,7 +12,6 @@ import com.example.test.repository.model.Lead;
 import com.example.test.repository.model.LeadTag;
 import com.example.test.repository.model.Partner;
 import com.example.test.web.model.response.lead.GetLeadWebResponse;
-import com.solusinegeri.validation.model.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -44,13 +43,12 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
   }
 
   private Mono<Lead> getLead(GetLeadByIdCommandRequest request) {
-    return leadRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
+    return leadRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), request.getId())
         .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.LEAD_NOT_EXIST)));
   }
 
-  private Mono<Partner> getPartner(Lead potentialLead) {
-    return partnerRepository.findByDeletedFalseAndCompanyIdAndId(potentialLead.getCompanyId(),
-            potentialLead.getPartnerId())
+  private Mono<Partner> getPartner(Lead lead) {
+    return partnerRepository.findByDeletedFalseAndCompanyIdAndId(lead.getCompanyGroupId(), lead.getPartnerId())
         .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
             .name(ErrorCode.PARTNER_NOT_EXIST)
             .build()));
@@ -64,7 +62,7 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
   }
 
   private Mono<LeadTag> findTag(Lead request, String tagId) {
-    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), tagId)
+    return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), tagId)
         .switchIfEmpty(Mono.fromSupplier(() -> LeadTag.builder()
             .name(ErrorCode.TAG_NOT_EXIST)
             .build()));
@@ -80,8 +78,7 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
   private GetLeadWebResponse toGetWebResponse(Lead lead, Partner partner, List<TagVO> tagVOS) {
     return GetLeadWebResponse.builder()
         .id(lead.getId())
-        .companyId(lead.getCompanyId())
-        .potentialLeadId(lead.getPotentialLeadId())
+        .potentialLeadId(lead.getCompanyGroupId())
         .name(lead.getName())
         .picName(lead.getPicName())
         .picPhone(lead.getPicPhone())

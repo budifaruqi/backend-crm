@@ -8,7 +8,6 @@ import com.example.test.repository.LeadTagRepository;
 import com.example.test.repository.model.LeadTag;
 import com.example.test.web.configuration.CustomAuditorAware;
 import com.example.test.web.model.response.leadTag.GetLeadTagWebResponse;
-import com.solusinegeri.validation.model.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 

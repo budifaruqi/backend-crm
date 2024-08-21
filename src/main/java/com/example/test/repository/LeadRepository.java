@@ -6,9 +6,9 @@ import reactor.core.publisher.Mono;
 
 public interface LeadRepository extends ReactiveMongoRepository<Lead, String>, LeadRepositoryFilter {
 
-  Mono<Lead> findByDeletedFalseAndCompanyIdAndPotentialLeadId(String companyId, String id);
+  //  Mono<Lead> findByDeletedFalseAndCompanyIdAndPotentialLeadId(String companyId, String id);
+  //
+  //  Mono<Boolean> existsByDeletedFalseAndCompanyIdAndPotentialLeadId(String companyId, String id);
 
-  Mono<Boolean> existsByDeletedFalseAndCompanyIdAndPotentialLeadId(String companyId, String id);
-
-  Mono<Lead> findByDeletedFalseAndCompanyIdAndId(String companyId, String id);
+  Mono<Lead> findByDeletedFalseAndCompanyGroupIdAndId(String companyGroupId, String id);
 }

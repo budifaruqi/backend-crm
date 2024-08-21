@@ -8,9 +8,15 @@ public final class ResponseType {
 
   public static final String SUCCESS_CREATE_LEAD_TAG = "SUCCESS_CREATE_LEAD_TAG";
 
+  public static final String SUCCESS_DELETE_BANK = "SUCCESS_DELETE_BANK";
+
   public static final String SUCCESS_DELETE_LEAD_TAG = "SUCCESS_DELETE_LEAD_TAG";
 
+  public static final String SUCCESS_GET_BANK_DATA = "SUCCESS_GET_BANK_DATA";
+
   public static final String SUCCESS_GET_LEAD_TAG = "SUCCESS_GET_LEAD_TAG";
+
+  public static final String SUCCESS_UPDATE_BANK_DATA = "SUCCESS_UPDATE_BANK_DATA";
 
   public static final String SUCCESS_UPDATE_LEAD_TAG = "SUCCESS_UPDATE_LEAD_TAG";
 }

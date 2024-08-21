@@ -21,19 +21,19 @@ public class UpdateLeadTagByIdCommandImpl implements UpdateLeadTagByIdCommand {
 
   @Override
   public Mono<GetLeadTagWebResponse> execute(UpdateLeadTagByIdCommandRequest request) {
-    return Mono.defer(()-> findLeadTag(request))
-        .flatMap(leadTag -> Mono.defer(()-> checkName(leadTag, request))
+    return Mono.defer(() -> findLeadTag(request))
+        .flatMap(leadTag -> Mono.defer(() -> checkName(leadTag, request))
             .map(s -> toLeadTag(leadTag, request))
             .flatMap(leadTagRepository::save)
             .map(this::toGetWebResponse));
   }
 
-  private Mono<LeadTag> findLeadTag(UpdateLeadTagByIdCommandRequest request){
+  private Mono<LeadTag> findLeadTag(UpdateLeadTagByIdCommandRequest request) {
     return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), request.getId())
         .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.TAG_NOT_EXIST)));
   }
 
-  private Mono<LeadTag> checkName(LeadTag leadTag, UpdateLeadTagByIdCommandRequest request){
+  private Mono<LeadTag> checkName(LeadTag leadTag, UpdateLeadTagByIdCommandRequest request) {
     return leadTagRepository.findByDeletedFalseAndCompanyGroupIdAndName(request.getCompanyGroupId(), request.getName())
         .switchIfEmpty(Mono.fromSupplier(() -> LeadTag.builder()
             .build()))
@@ -42,14 +42,14 @@ public class UpdateLeadTagByIdCommandImpl implements UpdateLeadTagByIdCommand {
         .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.NAME_ALREADY_USED)));
   }
 
-  private LeadTag toLeadTag(LeadTag leadTag, UpdateLeadTagByIdCommandRequest request){
+  private LeadTag toLeadTag(LeadTag leadTag, UpdateLeadTagByIdCommandRequest request) {
     leadTag.setName(request.getName());
     leadTag.setDescription(request.getDescription());
 
     return leadTag;
   }
 
-  private GetLeadTagWebResponse toGetWebResponse(LeadTag leadTag){
+  private GetLeadTagWebResponse toGetWebResponse(LeadTag leadTag) {
     return GetLeadTagWebResponse.builder()
         .id(leadTag.getId())
         .companyGroupId(leadTag.getCompanyGroupId())

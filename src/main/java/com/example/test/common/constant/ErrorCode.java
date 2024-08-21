@@ -8,6 +8,10 @@ public final class ErrorCode {
 
   public static final String AUTH_FAILED = "AUTH_FAILED";
 
+  public static final String BANK_CHILD_EXIST = "BANK_CHILD_EXIST";
+
+  public static final String BANK_NOT_EXIST = "BANK_NOT_EXIST";
+
   public static final String LEAD_NOT_EXIST = "LEAD_NOT_EXIST";
 
   public static final String NAME_ALREADY_USED = "NAME_ALREADY_USED";

@@ -7,7 +7,6 @@ import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.PartnerRepository;
 import com.example.test.repository.model.Partner;
-import com.solusinegeri.validation.model.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 

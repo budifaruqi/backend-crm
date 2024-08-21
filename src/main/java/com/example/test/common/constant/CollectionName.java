@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CollectionName {
 
+  public static final String BANK = "banks";
+
   public static final String LEAD = "leads";
 
   public static final String LEAD_TAG = "lead_tags";

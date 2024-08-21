@@ -9,7 +9,6 @@ import com.example.test.common.helper.response.exception.MicroserviceValidationE
 import com.solusinegeri.common.model.exception.ForbiddenException;
 import com.solusinegeri.common.model.exception.UnauthorizedException;
 import com.solusinegeri.common.service.JsonService;
-import com.solusinegeri.validation.model.exception.ValidationException;
 import com.solusinegeri.web_client.properties.WebClientProperties;
 import com.solusinegeri.web_client.reactive.BaseWebClient;
 import lombok.extern.slf4j.Slf4j;
