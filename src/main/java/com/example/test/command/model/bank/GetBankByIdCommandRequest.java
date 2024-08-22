@@ -16,5 +16,6 @@ public class GetBankByIdCommandRequest {
   @NotBlank
   private String companyGroupId;
 
+  @NotBlank
   private String id;
 }

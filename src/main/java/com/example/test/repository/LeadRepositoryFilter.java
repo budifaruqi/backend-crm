@@ -10,11 +10,9 @@ import java.util.List;
 
 public interface LeadRepositoryFilter {
 
-  Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String partnerId,
-      String city, String province, String reference, LeadStatus status, Boolean isCustomer, Boolean isLive,
-      Boolean isDormant, Pageable pageable);
+  Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String city,
+      String province, String reference, LeadStatus status, Pageable pageable);
 
-  Flux<Lead> findAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String partnerId,
-      String city, String province, String reference, LeadStatus status, Boolean isCustomer, Boolean isLive,
-      Boolean isDormant, Pageable pageable);
+  Flux<Lead> findAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String city,
+      String province, String reference, LeadStatus status, Pageable pageable);
 }

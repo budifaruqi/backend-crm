@@ -1,0 +1,15 @@
+package com.example.test.common.enums;
+
+public enum FollowUpStatus {
+  PRESENTATION_REQUEST,
+  PRESENTATION,
+  POST_PRESENTATION,
+  QUOTATION,
+  FOLLOW_UP,
+  NO_RESPONSE,
+  INTERESTED,
+  NOT_INTERESTED,
+  PROPOSAL_SENT,
+  FOLLOW_UP_NEEDED
+}
+

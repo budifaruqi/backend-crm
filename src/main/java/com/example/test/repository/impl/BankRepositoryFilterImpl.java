@@ -8,11 +8,13 @@ import com.solusinegeri.mongodb.helper.QueryBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Objects;
 
+@Repository
 public class BankRepositoryFilterImpl implements BankRepositoryFilter {
 
   private final ReactiveMongoTemplate reactiveMongoTemplate;

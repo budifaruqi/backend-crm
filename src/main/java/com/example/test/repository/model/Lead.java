@@ -36,10 +36,6 @@ public class Lead extends BaseEntity {
 
   private String description;
 
-  private List<String> tags;
-
-  private String partnerId;
-
   private String address;
 
   private String city;
@@ -56,13 +52,13 @@ public class Lead extends BaseEntity {
 
   private String instagram;
 
-  private String reference;
+  private List<String> tags;
+
+  private String salesId;
+
+  private String bankId;
 
   private LeadStatus status;
 
-  private Boolean isCustomer;
-
-  private Boolean isLive;
-
-  private Boolean isDormant;
+  private String reference;
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class UpdatePotentialLeadCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   @NotBlank
   private String id;

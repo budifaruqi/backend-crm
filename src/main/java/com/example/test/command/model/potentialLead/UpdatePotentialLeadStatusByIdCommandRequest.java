@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class UpdatePotentialLeadStatusByIdCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   @NotBlank
   private String id;

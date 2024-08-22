@@ -16,11 +16,7 @@ public class GetPotentialLeadWebResponse {
 
   private String id;
 
-  private String companyId;
-
-  private String partnerId;
-
-  private String partnerName;
+  private String companyGroupId;
 
   private String name;
 

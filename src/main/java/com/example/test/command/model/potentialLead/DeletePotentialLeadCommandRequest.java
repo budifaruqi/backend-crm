@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class DeletePotentialLeadCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   private String id;
 }

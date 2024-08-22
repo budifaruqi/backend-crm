@@ -25,34 +25,25 @@ public class LeadRepositoryFilterImpl implements LeadRepositoryFilter {
   }
 
   @Override
-  public Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds,
-      String partnerId, String city, String province, String reference, LeadStatus status, Boolean isCustomer,
-      Boolean isLive, Boolean isDormant, Pageable pageable) {
-    Query query = getQuery(companyId, name, tagIds, partnerId, city, province, reference, status, isCustomer, isLive,
-        isDormant, null);
+  public Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String city,
+      String province, String reference, LeadStatus status, Pageable pageable) {
+    Query query = getQuery(companyId, name, tagIds, city, province, reference, status, null);
     return reactiveMongoTemplate.count(query, Lead.class, CollectionName.LEAD);
   }
 
   @Override
-  public Flux<Lead> findAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String partnerId,
-      String city, String province, String reference, LeadStatus status, Boolean isCustomer, Boolean isLive,
-      Boolean isDormant, Pageable pageable) {
-    Query query = getQuery(companyId, name, tagIds, partnerId, city, province, reference, status, isCustomer, isLive,
-        isDormant, pageable);
+  public Flux<Lead> findAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String city,
+      String province, String reference, LeadStatus status, Pageable pageable) {
+    Query query = getQuery(companyId, name, tagIds, city, province, reference, status, pageable);
     return reactiveMongoTemplate.find(query, Lead.class, CollectionName.LEAD);
   }
 
-  private Query getQuery(String companyId, String name, List<String> tagIds, String partnerId, String city,
-      String province, String reference, LeadStatus status, Boolean isCustomer, Boolean isLive, Boolean isDormant,
-      Pageable pageable) {
+  private Query getQuery(String companyId, String name, List<String> tagIds, String city, String province,
+      String reference, LeadStatus status, Pageable pageable) {
     QueryBuilder queryBuilder = QueryBuilder.create()
         .andEqual("deleted", false)
         .andEqual("companyId", companyId)
-        .andEqual("partnerId", partnerId)
         .andEqual("status", status)
-        .andEqual("isCustomer", isCustomer)
-        .andEqual("isLive", isLive)
-        .andEqual("isDormant", isDormant)
         .andLikeIgnoreCase("city", city)
         .andLikeIgnoreCase("province", province)
         .andLikeIgnoreCase("reference", reference)

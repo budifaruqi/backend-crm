@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 public class GetAllPotentialLeadCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   private String name;
 

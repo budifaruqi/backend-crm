@@ -8,6 +8,8 @@ public final class CollectionName {
 
   public static final String BANK = "banks";
 
+  public static final String FOLLOW_UP = "follow_ups";
+
   public static final String LEAD = "leads";
 
   public static final String LEAD_TAG = "lead_tags";

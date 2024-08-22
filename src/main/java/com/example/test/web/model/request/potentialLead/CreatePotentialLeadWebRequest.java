@@ -13,8 +13,6 @@ import java.util.List;
 @Builder
 public class CreatePotentialLeadWebRequest {
 
-  private String partnerId;
-
   private String name;
 
   private String phone;

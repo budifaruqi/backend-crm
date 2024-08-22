@@ -17,9 +17,7 @@ public class GetLeadWebResponse {
 
   private String id;
 
-  private String companyId;
-
-  private String potentialLeadId;
+  private String companyGroupId;
 
   private String name;
 
@@ -30,12 +28,6 @@ public class GetLeadWebResponse {
   private String picEmail;
 
   private String description;
-
-  private List<TagVO> tags;
-
-  private String partnerId;
-
-  private String partnerName;
 
   private String address;
 
@@ -53,13 +45,17 @@ public class GetLeadWebResponse {
 
   private String instagram;
 
-  private String reference;
+  private List<TagVO> tags;
+
+  private String salesId;
+
+  private String salesName;
+
+  private String bankId;
+
+  private String bankName;
 
   private LeadStatus status;
 
-  private Boolean isCustomer;
-
-  private Boolean isLive;
-
-  private Boolean isDormant;
+  private String reference;
 }

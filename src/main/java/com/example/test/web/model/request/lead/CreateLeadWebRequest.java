@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class CreateLeadWebRequest {
 
-  private String potentialLeadId;
+  private String name;
 
   private String picName;
 
@@ -22,8 +22,6 @@ public class CreateLeadWebRequest {
   private String picEmail;
 
   private String description;
-
-  private List<String> leadTagIds;
 
   private String address;
 
@@ -40,6 +38,12 @@ public class CreateLeadWebRequest {
   private String facebook;
 
   private String instagram;
+
+  private List<String> tags;
+
+  private String salesId;
+
+  private String bankId;
 
   private String reference;
 }

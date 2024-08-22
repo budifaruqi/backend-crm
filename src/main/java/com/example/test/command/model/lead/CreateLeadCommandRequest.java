@@ -18,10 +18,10 @@ import java.util.List;
 public class CreateLeadCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   @NotBlank
-  private String potentialLeadId;
+  private String name;
 
   @NotBlank
   private String picName;
@@ -33,8 +33,6 @@ public class CreateLeadCommandRequest {
   private String picEmail;
 
   private String description;
-
-  private List<String> leadTagIds;
 
   @NotBlank
   private String address;
@@ -58,6 +56,12 @@ public class CreateLeadCommandRequest {
   private String facebook;
 
   private String instagram;
+
+  private List<String> tags;
+
+  private String salesId;
+
+  private String bankId;
 
   private String reference;
 }

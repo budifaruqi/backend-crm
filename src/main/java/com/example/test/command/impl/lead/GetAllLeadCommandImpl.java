@@ -4,12 +4,12 @@ import com.example.test.command.lead.GetAllLeadCommand;
 import com.example.test.command.model.lead.GetAllLeadCommandRequest;
 import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.vo.TagVO;
+import com.example.test.repository.BankRepository;
 import com.example.test.repository.LeadRepository;
 import com.example.test.repository.LeadTagRepository;
-import com.example.test.repository.PartnerRepository;
+import com.example.test.repository.model.Bank;
 import com.example.test.repository.model.Lead;
 import com.example.test.repository.model.LeadTag;
-import com.example.test.repository.model.Partner;
 import com.example.test.web.model.response.lead.GetLeadWebResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,13 +27,13 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
 
   private final LeadTagRepository leadTagRepository;
 
-  private final PartnerRepository partnerRepository;
+  private final BankRepository bankRepository;
 
   public GetAllLeadCommandImpl(LeadRepository leadRepository, LeadTagRepository leadTagRepository,
-      PartnerRepository partnerRepository) {
+      BankRepository bankRepository) {
     this.leadRepository = leadRepository;
     this.leadTagRepository = leadTagRepository;
-    this.partnerRepository = partnerRepository;
+    this.bankRepository = bankRepository;
   }
 
   @Override
@@ -43,32 +43,30 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
   }
 
   private Mono<Long> count(GetAllLeadCommandRequest request) {
-    return leadRepository.countAllByDeletedFalseAndFilter(request.getCompanyId(), request.getLeadName(),
-        request.getTagIds(), request.getPartnerId(), request.getCity(), request.getProvince(), request.getReference(),
-        request.getStatus(), request.getIsCustomer(), request.getIsLive(), request.getIsDormant(),
+    return leadRepository.countAllByDeletedFalseAndFilter(request.getCompanyGroupId(), request.getLeadName(),
+        request.getTagIds(), request.getCity(), request.getProvince(), request.getReference(), request.getStatus(),
         request.getPageable());
   }
 
   private Mono<List<GetLeadWebResponse>> getData(GetAllLeadCommandRequest request) {
     return Flux.defer(() -> getLead(request))
-        .flatMapSequential(lead -> Mono.defer(() -> getPartner(lead))
-            .flatMap(partner -> Mono.defer(() -> checkTag(lead))
-                .map(tagVOS -> toGetWebResponse(lead, partner, tagVOS))))
+        .flatMapSequential(lead -> Mono.defer(() -> getBank(lead))
+            .flatMap(bank -> Mono.defer(() -> checkTag(lead))
+                .map(tagVOS -> toGetWebResponse(lead, bank, tagVOS))))
         .collectList();
   }
 
   private Flux<Lead> getLead(GetAllLeadCommandRequest request) {
-    return leadRepository.findAllByDeletedFalseAndFilter(request.getCompanyId(), request.getLeadName(),
-            request.getTagIds(), request.getPartnerId(), request.getCity(), request.getProvince(), request.getReference(),
-            request.getStatus(), request.getIsCustomer(), request.getIsLive(), request.getIsDormant(),
+    return leadRepository.findAllByDeletedFalseAndFilter(request.getCompanyGroupId(), request.getLeadName(),
+            request.getTagIds(), request.getCity(), request.getProvince(), request.getReference(), request.getStatus(),
             request.getPageable())
         .filter(lead -> new HashSet<>(lead.getTags()).containsAll(request.getTagIds()));
   }
 
-  private Mono<Partner> getPartner(Lead lead) {
-    return partnerRepository.findByDeletedFalseAndCompanyIdAndId(lead.getCompanyGroupId(), lead.getPartnerId())
-        .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
-            .name(ErrorCode.PARTNER_NOT_EXIST)
+  private Mono<Bank> getBank(Lead lead) {
+    return bankRepository.findByDeletedFalseAndCompanyGroupIdAndId(lead.getCompanyGroupId(), lead.getBankId())
+        .switchIfEmpty(Mono.fromSupplier(() -> Bank.builder()
+            .name(ErrorCode.BANK_NOT_EXIST)
             .build()));
   }
 
@@ -93,18 +91,15 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
         .build();
   }
 
-  private GetLeadWebResponse toGetWebResponse(Lead lead, Partner partner, List<TagVO> tagVOS) {
+  private GetLeadWebResponse toGetWebResponse(Lead lead, Bank bank, List<TagVO> tagVOS) {
     return GetLeadWebResponse.builder()
         .id(lead.getId())
-        .potentialLeadId(lead.getCompanyGroupId())
+        .companyGroupId(lead.getCompanyGroupId())
         .name(lead.getName())
         .picName(lead.getPicName())
         .picPhone(lead.getPicPhone())
         .picEmail(lead.getPicEmail())
         .description(lead.getDescription())
-        .tags(tagVOS)
-        .partnerId(lead.getPartnerId())
-        .partnerName(partner.getName())
         .address(lead.getAddress())
         .city(lead.getCity())
         .province(lead.getProvince())
@@ -113,11 +108,13 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
         .potentialRevenue(lead.getPotentialRevenue())
         .facebook(lead.getFacebook())
         .instagram(lead.getInstagram())
-        .reference(lead.getReference())
+        .tags(tagVOS)
+        .salesId(lead.getSalesId())
+        .salesName("BELOM")
+        .bankId(lead.getBankId())
+        .bankName(bank.getName())
         .status(lead.getStatus())
-        .isCustomer(lead.getIsCustomer())
-        .isLive(lead.getIsLive())
-        .isDormant(lead.getIsDormant())
+        .reference(lead.getReference())
         .build();
   }
 

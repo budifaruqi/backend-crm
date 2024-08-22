@@ -17,13 +17,11 @@ import java.util.List;
 public class GetAllLeadCommandRequest {
 
   @NotBlank
-  private String companyId;
+  private String companyGroupId;
 
   private String leadName;
 
   private List<String> tagIds;
-
-  private String partnerId;
 
   private String city;
 
@@ -32,12 +30,6 @@ public class GetAllLeadCommandRequest {
   private String reference;
 
   private LeadStatus status;
-
-  private Boolean isCustomer;
-
-  private Boolean isLive;
-
-  private Boolean isDormant;
 
   private Pageable pageable;
 }

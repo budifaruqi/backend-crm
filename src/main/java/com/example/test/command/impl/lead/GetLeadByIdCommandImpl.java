@@ -5,12 +5,12 @@ import com.example.test.command.model.lead.GetLeadByIdCommandRequest;
 import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.common.vo.TagVO;
+import com.example.test.repository.BankRepository;
 import com.example.test.repository.LeadRepository;
 import com.example.test.repository.LeadTagRepository;
-import com.example.test.repository.PartnerRepository;
+import com.example.test.repository.model.Bank;
 import com.example.test.repository.model.Lead;
 import com.example.test.repository.model.LeadTag;
-import com.example.test.repository.model.Partner;
 import com.example.test.web.model.response.lead.GetLeadWebResponse;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -25,32 +25,32 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
 
   private final LeadTagRepository leadTagRepository;
 
-  private final PartnerRepository partnerRepository;
+  private final BankRepository bankRepository;
 
   public GetLeadByIdCommandImpl(LeadRepository leadRepository, LeadTagRepository leadTagRepository,
-      PartnerRepository partnerRepository) {
+      BankRepository bankRepository) {
     this.leadRepository = leadRepository;
     this.leadTagRepository = leadTagRepository;
-    this.partnerRepository = partnerRepository;
+    this.bankRepository = bankRepository;
   }
 
   @Override
   public Mono<GetLeadWebResponse> execute(GetLeadByIdCommandRequest request) {
     return Mono.defer(() -> getLead(request))
-        .flatMap(lead -> Mono.defer(() -> getPartner(lead))
-            .flatMap(partner -> Mono.defer(() -> checkTag(lead))
-                .map(tagVOS -> toGetWebResponse(lead, partner, tagVOS))));
+        .flatMap(lead -> Mono.defer(() -> getBank(lead))
+            .flatMap(bank -> Mono.defer(() -> checkTag(lead))
+                .map(tagVOS -> toGetWebResponse(lead, bank, tagVOS))));
   }
 
   private Mono<Lead> getLead(GetLeadByIdCommandRequest request) {
-    return leadRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyId(), request.getId())
+    return leadRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), request.getId())
         .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.LEAD_NOT_EXIST)));
   }
 
-  private Mono<Partner> getPartner(Lead lead) {
-    return partnerRepository.findByDeletedFalseAndCompanyIdAndId(lead.getCompanyGroupId(), lead.getPartnerId())
-        .switchIfEmpty(Mono.fromSupplier(() -> Partner.builder()
-            .name(ErrorCode.PARTNER_NOT_EXIST)
+  private Mono<Bank> getBank(Lead lead) {
+    return bankRepository.findByDeletedFalseAndCompanyGroupIdAndId(lead.getCompanyGroupId(), lead.getId())
+        .switchIfEmpty(Mono.fromSupplier(() -> Bank.builder()
+            .name(ErrorCode.BANK_NOT_EXIST)
             .build()));
   }
 
@@ -75,18 +75,15 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
         .build();
   }
 
-  private GetLeadWebResponse toGetWebResponse(Lead lead, Partner partner, List<TagVO> tagVOS) {
+  private GetLeadWebResponse toGetWebResponse(Lead lead, Bank bank, List<TagVO> tagVOS) {
     return GetLeadWebResponse.builder()
         .id(lead.getId())
-        .potentialLeadId(lead.getCompanyGroupId())
+        .companyGroupId(lead.getCompanyGroupId())
         .name(lead.getName())
         .picName(lead.getPicName())
         .picPhone(lead.getPicPhone())
         .picEmail(lead.getPicEmail())
         .description(lead.getDescription())
-        .tags(tagVOS)
-        .partnerId(lead.getPartnerId())
-        .partnerName(partner.getName())
         .address(lead.getAddress())
         .city(lead.getCity())
         .province(lead.getProvince())
@@ -95,11 +92,13 @@ public class GetLeadByIdCommandImpl implements GetLeadByIdCommand {
         .potentialRevenue(lead.getPotentialRevenue())
         .facebook(lead.getFacebook())
         .instagram(lead.getInstagram())
-        .reference(lead.getReference())
+        .tags(tagVOS)
+        .salesId(lead.getSalesId())
+        .salesName("BELOM")
+        .bankId(lead.getBankId())
+        .bankName(bank.getName())
         .status(lead.getStatus())
-        .isCustomer(lead.getIsCustomer())
-        .isLive(lead.getIsLive())
-        .isDormant(lead.getIsDormant())
+        .reference(lead.getReference())
         .build();
   }
 }

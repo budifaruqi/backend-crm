@@ -14,7 +14,6 @@ import reactor.core.publisher.Mono;
 import java.util.Objects;
 
 @Repository
-
 public class PartnerRepositoryFilterImpl implements PartnerRepositoryFilter {
 
   private final ReactiveMongoTemplate reactiveMongoTemplate;
