@@ -21,4 +21,6 @@ public final class CollectionName {
   public static final String PRODUCT = "products";
 
   public static final String CATEGORY = "categories";
+
+  public static final String EXTERNAL_USERS = "external_users";
 }

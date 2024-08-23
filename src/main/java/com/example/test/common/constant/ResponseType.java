@@ -6,6 +6,8 @@ public final class ResponseType {
 
   public static final String SUCCESS_CREATE_BANK = "SUCCESS_CREATE_BANK";
 
+  public static final String SUCCESS_CREATE_EXTERNAL_USER = "SUCCESS_CREATE_EXTERNAL_USER";
+
   public static final String SUCCESS_CREATE_FOLLOW_UP = "SUCCESS_CREATE_FOLLOW_UP";
 
   public static final String SUCCESS_CREATE_LEAD = "SUCCESS_CREATE_LEAD";

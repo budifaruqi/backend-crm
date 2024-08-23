@@ -5,11 +5,14 @@ com/example/test/command/partner/GetPartnerByIdCommand.class
 com/example/test/command/impl/leadTag/GetAllLeadTagCommandImpl.class
 com/example/test/repository/model/Partner$PartnerBuilder.class
 com/example/test/repository/model/PotentialLead.class
+com/example/test/command/model/externalUser/CreateExternalUserCommandRequest$CreateExternalUserCommandRequestBuilder.class
 com/example/test/command/model/lead/CreateLeadCommandRequest.class
 com/example/test/repository/impl/FollowUpRepositoryFilterImpl.class
 com/example/test/repository/model/LeadTag$LeadTagBuilder.class
 com/example/test/command/model/lead/UpdateLeadByIdCommandRequest$UpdateLeadByIdCommandRequestBuilder.class
+com/example/test/command/externalUser/CreateExternalUserCommand.class
 com/example/test/web/model/request/partner/CreatePartnerWebRequest.class
+com/example/test/common/enums/AccountType.class
 com/example/test/command/model/leadTag/GetLeadTagByIdCommandRequest.class
 com/example/test/command/model/followUp/GetAllFollowUpCommandRequest$GetAllFollowUpCommandRequestBuilder.class
 com/example/test/web/configuration/TokenAccessParameterArgumentResolver.class
@@ -29,6 +32,7 @@ com/example/test/common/vo/RoleVO.class
 com/example/test/command/model/partner/DeletePartnerByIdCommandRequest.class
 com/example/test/repository/LeadRepository.class
 com/example/test/command/model/leadTag/DeleteLeadTagByIdCommandRequest$DeleteLeadTagByIdCommandRequestBuilder.class
+com/example/test/repository/model/ExternalUser$ExternalUserBuilder.class
 com/example/test/command/model/partner/GetPartnerByIdCommandRequest.class
 com/example/test/repository/BankRepository.class
 com/example/test/client/model/request/ValidatePrivilegeClientRequest$ValidatePrivilegeClientRequestBuilder.class
@@ -75,6 +79,7 @@ com/example/test/command/impl/potentialLead/CreatePotentialLeadCommandImpl.class
 com/example/test/command/lead/CreateLeadCommand.class
 com/example/test/command/model/potentialLead/UpdatePotentialLeadCommandRequest$UpdatePotentialLeadCommandRequestBuilder.class
 com/example/test/command/potentialLead/UpdatePotentialLeadCommand.class
+com/example/test/repository/ExternalUserRepository.class
 com/example/test/common/constant/ResponseType.class
 com/example/test/command/potentialLead/DeletePotentialLeadCommand.class
 com/example/test/command/impl/bank/UpdateBankByIdCommandImpl.class
@@ -84,6 +89,7 @@ com/example/test/command/model/leadTag/CreateLeadTagCommandRequest.class
 com/example/test/command/model/potentialLead/GetPotentialLeadByIdCommandRequest$GetPotentialLeadByIdCommandRequestBuilder.class
 com/example/test/web/model/request/partner/CreatePartnerWebRequest$CreatePartnerWebRequestBuilder.class
 com/example/test/repository/model/FollowUp.class
+com/example/test/web/model/request/externalUser/CreateExternalUserWebRequest$CreateExternalUserWebRequestBuilder.class
 com/example/test/repository/PotentialLeadRepository.class
 com/example/test/command/bank/GetAllBankCommand.class
 com/example/test/command/leadTag/UpdateLeadTagByIdCommand.class
@@ -108,6 +114,7 @@ com/example/test/command/model/leadTag/DeleteLeadTagByIdCommandRequest.class
 com/example/test/web/model/request/leadTag/CreateLeadTagWebRequest.class
 com/example/test/web/model/request/leadTag/CreateLeadTagWebRequest$CreateLeadTagWebRequestBuilder.class
 com/example/test/repository/impl/BankRepositoryFilterImpl.class
+com/example/test/repository/model/ExternalUser.class
 com/example/test/client/model/response/DetailClientResponse.class
 com/example/test/command/followUp/UpdateFollowUpByIdCommand.class
 com/example/test/repository/LeadTagRepositoryFilter.class
@@ -186,6 +193,7 @@ com/example/test/command/impl/followUp/GetAllFollowUpCommandImpl.class
 com/example/test/command/impl/leadTag/UpdateLeadTagByIdCommandImpl.class
 com/example/test/validation/validator/BankTypeCheckValidator.class
 com/example/test/web/security/MustAuthenticatedValidator.class
+com/example/test/command/impl/externalUser/CreateExternalUserCommandImpl.class
 com/example/test/command/impl/followUp/CreateFollowUpCommandImpl.class
 com/example/test/command/model/followUp/GetAllFollowUpCommandRequest.class
 com/example/test/repository/BankRepositoryFilter.class
@@ -203,11 +211,13 @@ com/example/test/command/impl/bank/GetBankByIdCommandImpl.class
 com/example/test/command/model/bank/GetBankByIdCommandRequest$GetBankByIdCommandRequestBuilder.class
 com/example/test/web/model/response/potentialLead/GetPotentialLeadWebResponse.class
 com/example/test/web/configuration/CommerceServiceExceptionControllerAdvice$DetailWebResponse.class
+com/example/test/web/controller/ExternalUserController.class
 com/example/test/web/model/request/partner/UpdatePartnerWebRequest$UpdatePartnerWebRequestBuilder.class
 com/example/test/command/leadTag/CreateLeadTagCommand.class
 com/example/test/command/model/leadTag/CreateLeadTagCommandRequest$CreateLeadTagCommandRequestBuilder.class
 com/example/test/command/model/followUp/DeleteFollowUpByIdCommandRequest$DeleteFollowUpByIdCommandRequestBuilder.class
 com/example/test/validation/validator/PotentialLeadStatusSubsetValidator.class
+com/example/test/web/model/request/externalUser/CreateExternalUserWebRequest.class
 com/example/test/command/impl/partner/GetAllPartnerCommandImpl.class
 com/example/test/command/model/bank/GetAllBankCommandRequest$GetAllBankCommandRequestBuilder.class
 com/example/test/web/model/resolver/RequestTokenAccess.class
@@ -217,6 +227,7 @@ com/example/test/web/model/response/partner/GetPartnerWebResponse$GetPartnerWebR
 com/example/test/command/model/potentialLead/GetAllPotentialLeadCommandRequest.class
 com/example/test/web/configuration/CustomAccessTokenParameter.class
 com/example/test/common/enums/FollowUpActivity.class
+com/example/test/repository/ExternalUserRepositoryFilter.class
 com/example/test/client/model/response/AuthenticationClientResponse$AuthenticationClientResponseBuilder.class
 com/example/test/command/impl/partner/DeletePartnerByIdCommandImpl.class
 com/example/test/command/impl/followUp/GetFollowUpByIdCommandImpl.class
@@ -248,6 +259,7 @@ com/example/test/common/vo/AddressVO.class
 com/example/test/web/model/request/bank/CreateBankWebRequest$CreateBankWebRequestBuilder.class
 com/example/test/web/model/request/followUp/UpdateFollowUpByIdWebRequest$UpdateFollowUpByIdWebRequestBuilder.class
 com/example/test/command/impl/bank/CreateBankCommandImpl.class
+com/example/test/command/model/externalUser/CreateExternalUserCommandRequest.class
 com/example/test/web/security/MustAuthenticatedValidatorImpl.class
 com/example/test/common/enums/LeadStatus.class
 com/example/test/repository/model/FollowUp$FollowUpBuilder.class

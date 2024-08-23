@@ -5,6 +5,7 @@ import com.example.test.command.model.followUp.CreateFollowUpCommandRequest;
 import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.enums.LeadStatus;
 import com.example.test.common.helper.response.exception.MicroserviceValidationException;
+import com.example.test.repository.ExternalUserRepository;
 import com.example.test.repository.FollowUpRepository;
 import com.example.test.repository.LeadRepository;
 import com.example.test.repository.model.FollowUp;
@@ -20,9 +21,13 @@ public class CreateFollowUpCommandImpl implements CreateFollowUpCommand {
 
   private final LeadRepository leadRepository;
 
-  public CreateFollowUpCommandImpl(FollowUpRepository followUpRepository, LeadRepository leadRepository) {
+  private final ExternalUserRepository externalUserRepository;
+
+  public CreateFollowUpCommandImpl(FollowUpRepository followUpRepository, LeadRepository leadRepository,
+      ExternalUserRepository externalUserRepository) {
     this.followUpRepository = followUpRepository;
     this.leadRepository = leadRepository;
+    this.externalUserRepository = externalUserRepository;
   }
 
   @Override
