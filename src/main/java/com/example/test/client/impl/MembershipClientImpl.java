@@ -1,6 +1,7 @@
 package com.example.test.client.impl;
 
 import com.example.test.client.MembershipClient;
+import com.example.test.client.model.request.CreateExternalAccountClientRequest;
 import com.example.test.client.model.request.ValidatePrivilegeClientRequest;
 import com.example.test.client.model.response.AuthenticationClientResponse;
 import com.example.test.client.model.response.DetailClientResponse;
@@ -14,6 +15,7 @@ import com.solusinegeri.web_client.reactive.BaseWebClient;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -55,6 +57,20 @@ public class MembershipClientImpl extends BaseWebClient implements MembershipCli
           System.out.println(s);
           return s;
         });
+  }
+
+  @Override
+  public Mono<DetailClientResponse<AuthenticationClientResponse>> createExternalUser(
+      CreateExternalAccountClientRequest request) {
+    return client.post()
+        .uri(uriBuilder -> uriBuilder.path("/user/private/account_external/create_or_update")
+            .build())
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(BodyInserters.fromValue(request))
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .onStatus(HttpStatusCode::isError, toErrorValidationClientResponse(ErrorCode.FAILED_CREATE_ACCOUNT))
+        .bodyToMono(new ParameterizedTypeReference<DetailClientResponse<AuthenticationClientResponse>>() {});
   }
 
   @Override

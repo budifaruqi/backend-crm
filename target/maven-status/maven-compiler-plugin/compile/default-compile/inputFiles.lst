@@ -125,6 +125,7 @@
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/web/configuration/CommerceServiceExceptionControllerAdvice.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/web/model/response/partner/GetPartnerWebResponse.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/impl/bank/GetBankByIdCommandImpl.java
+/home/lenovo/Documents/backend-crm/src/main/java/com/example/test/client/model/request/CreateExternalAccountClientRequest.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/impl/lead/CreateLeadCommandImpl.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/web/controller/ExternalUserController.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/client/model/response/DetailClientResponse.java

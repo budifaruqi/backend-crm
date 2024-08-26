@@ -12,6 +12,8 @@ public final class ErrorCode {
 
   public static final String BANK_NOT_EXIST = "BANK_NOT_EXIST";
 
+  public static final String FAILED_CREATE_ACCOUNT = "FAILED_CREATE_ACCOUNT";
+
   public static final String FOLLOW_UP_NOT_EXIST = "FOLLOW_UP_NOT_EXIST";
 
   public static final String LEAD_NOT_EXIST = "LEAD_NOT_EXIST";
@@ -38,5 +40,9 @@ public final class ErrorCode {
 
   public static final String TAG_NOT_EXIST = "TAG_NOT_EXIST";
 
+  public static final String USERNAME_ALREADY_USED = "USERNAME_ALREADY_USED";
+
   public static final String VALUE_MUST_BE_GREATER_THAN_0 = "VALUE_MUST_BE_GREATER_THAN_0";
+
+  public static final String WRONG_EXTERNAL_ID = "WRONG_EXTERNAL_ID";
 }

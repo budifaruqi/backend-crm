@@ -67,6 +67,7 @@ com/example/test/repository/PartnerRepository.class
 com/example/test/web/security/MustAuthenticated.class
 com/example/test/repository/PotentialLeadRepositoryFilter.class
 com/example/test/common/helper/UrlHelper.class
+com/example/test/client/impl/MembershipClientImpl$2.class
 com/example/test/command/model/followUp/UpdateFollowUpByIdCommandRequest$UpdateFollowUpByIdCommandRequestBuilder.class
 com/example/test/command/partner/UpdatePartnerByIdCommand.class
 com/example/test/command/model/leadTag/GetAllLeadTagCommandRequest.class
@@ -97,6 +98,7 @@ com/example/test/web/model/request/lead/CreateLeadWebRequest$CreateLeadWebReques
 com/example/test/common/vo/PermissionVO$PermissionVOBuilder.class
 com/example/test/web/controller/LeadController.class
 com/example/test/command/impl/partner/GetPartnerByIdCommandImpl.class
+com/example/test/client/model/request/CreateExternalAccountClientRequest$CreateExternalAccountClientRequestBuilder.class
 com/example/test/web/model/request/bank/UpdateBankByIdWebRequest.class
 com/example/test/TestApplication.class
 com/example/test/web/model/request/leadTag/UpdateLeadTagWebRequest.class
@@ -232,6 +234,7 @@ com/example/test/client/model/response/AuthenticationClientResponse$Authenticati
 com/example/test/command/impl/partner/DeletePartnerByIdCommandImpl.class
 com/example/test/command/impl/followUp/GetFollowUpByIdCommandImpl.class
 com/example/test/command/potentialLead/UpdatePotentialLeadStatusByIdCommand.class
+com/example/test/client/model/request/CreateExternalAccountClientRequest.class
 com/example/test/command/model/bank/GetAllBankCommandRequest.class
 com/example/test/command/model/bank/DeleteBankByIdCommandRequest$DeleteBankByIdCommandRequestBuilder.class
 com/example/test/command/model/lead/DeleteLeadByIdCommandRequest.class

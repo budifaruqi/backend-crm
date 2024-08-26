@@ -9,4 +9,6 @@ public interface BankRepository extends ReactiveMongoRepository<Bank, String>, B
   Mono<Bank> findByDeletedFalseAndCompanyGroupIdAndName(String companyGroupId, String name);
 
   Mono<Bank> findByDeletedFalseAndCompanyGroupIdAndId(String companyGroupId, String id);
+
+  Mono<Boolean> existsByDeletedFalseAndCompanyGroupIdAndId(String companyGroupId, String externalId);
 }

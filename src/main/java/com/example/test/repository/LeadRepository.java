@@ -9,4 +9,6 @@ public interface LeadRepository extends ReactiveMongoRepository<Lead, String>, L
   Mono<Lead> findByDeletedFalseAndCompanyGroupIdAndId(String companyGroupId, String id);
 
   Mono<Lead> findByDeletedFalseAndCompanyGroupIdAndName(String companyGroupId, String name);
+
+  Mono<Boolean> existsByDeletedFalseAndCompanyGroupIdAndId(String companyGroupId, String externalId);
 }
