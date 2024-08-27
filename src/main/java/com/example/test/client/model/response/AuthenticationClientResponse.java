@@ -17,7 +17,7 @@ public class AuthenticationClientResponse {
 
   private String accountId;
 
-  private String companyGroupId;
+  private String companyCategoryId;
 
   private String companyId;
 
@@ -25,7 +25,7 @@ public class AuthenticationClientResponse {
 
   private String companyIdDefault;
 
-  private List<RoleVO> roles;
+  private List<RoleVO> roleClaimed;
 
   private List<PermissionVO> permissions;
 

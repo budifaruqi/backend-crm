@@ -32,7 +32,7 @@ public class UpdatePartnerByIdCommandImpl implements UpdatePartnerByIdCommand {
 
   private Mono<Partner> findPartner(UpdatePartnerByIdCommandRequest request) {
     return partnerRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARTNER_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARENT_NOT_EXIST)));
   }
 
   private Mono<Partner> checkRequest(UpdatePartnerByIdCommandRequest request) {

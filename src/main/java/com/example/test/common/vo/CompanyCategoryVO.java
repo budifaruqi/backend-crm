@@ -5,15 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoleVO {
+public class CompanyCategoryVO {
 
-  private String roleId;
+  private String companyCategoryId;
 
-  private String name;
+  private String companyCategoryName;
 
-  private String location;
+  private List<String> features;
 }

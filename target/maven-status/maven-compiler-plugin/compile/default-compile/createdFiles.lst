@@ -26,6 +26,7 @@ com/example/test/web/model/request/followUp/CreateFollowUpWebRequest.class
 com/example/test/command/model/lead/GetAllLeadCommandRequest.class
 com/example/test/repository/model/Bank$BankBuilder.class
 com/example/test/web/model/response/leadTag/GetLeadTagWebResponse.class
+com/example/test/common/vo/CompanyCategoryVO.class
 com/example/test/command/model/followUp/DeleteFollowUpByIdCommandRequest.class
 com/example/test/command/impl/leadTag/CreateLeadTagCommandImpl.class
 com/example/test/common/vo/RoleVO.class
@@ -49,6 +50,7 @@ com/example/test/web/model/request/bank/UpdateBankByIdWebRequest$UpdateBankByIdW
 com/example/test/client/model/response/DetailClientResponse$DetailClientResponseBuilder.class
 com/example/test/command/impl/lead/GetLeadByIdCommandImpl.class
 com/example/test/common/helper/response/MicroserviceResponseHelper.class
+com/example/test/client/model/response/CreateExternalAccountClientResponse.class
 com/example/test/command/model/bank/UpdateBankByIdCommandRequest.class
 com/example/test/command/bank/CreateBankCommand.class
 com/example/test/command/model/partner/CreatePartnerCommandRequest.class
@@ -87,6 +89,7 @@ com/example/test/command/impl/bank/UpdateBankByIdCommandImpl.class
 com/example/test/command/model/leadTag/GetLeadTagByIdCommandRequest$GetLeadTagByIdCommandRequestBuilder.class
 com/example/test/repository/model/Lead$LeadBuilder.class
 com/example/test/command/model/leadTag/CreateLeadTagCommandRequest.class
+com/example/test/client/model/response/CreateExternalAccountClientResponse$CreateExternalAccountClientResponseBuilder.class
 com/example/test/command/model/potentialLead/GetPotentialLeadByIdCommandRequest$GetPotentialLeadByIdCommandRequestBuilder.class
 com/example/test/web/model/request/partner/CreatePartnerWebRequest$CreatePartnerWebRequestBuilder.class
 com/example/test/repository/model/FollowUp.class
@@ -225,6 +228,7 @@ com/example/test/command/model/bank/GetAllBankCommandRequest$GetAllBankCommandRe
 com/example/test/web/model/resolver/RequestTokenAccess.class
 com/example/test/web/model/response/leadTag/GetLeadTagWebResponse$GetLeadTagWebResponseBuilder.class
 com/example/test/client/model/response/AuthenticationClientResponse.class
+com/example/test/common/vo/CompanyCategoryVO$CompanyCategoryVOBuilder.class
 com/example/test/web/model/response/partner/GetPartnerWebResponse$GetPartnerWebResponseBuilder.class
 com/example/test/command/model/potentialLead/GetAllPotentialLeadCommandRequest.class
 com/example/test/web/configuration/CustomAccessTokenParameter.class

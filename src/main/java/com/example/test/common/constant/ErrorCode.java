@@ -24,7 +24,7 @@ public final class ErrorCode {
 
   public static final String PARTNER_ALREADY_USED = "PARTNER_ALREADY_USED";
 
-  public static final String PARTNER_NOT_EXIST = "PARTNER_NOT_EXIST";
+  public static final String PARENT_NOT_EXIST = "PARTNER_NOT_EXIST";
 
   public static final String POTENTIAL_LEAD_ALREADY_USED = "POTENTIAL_LEAD_ALREADY_USED";
 

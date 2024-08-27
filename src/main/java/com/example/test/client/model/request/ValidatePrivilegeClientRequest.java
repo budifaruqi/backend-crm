@@ -1,12 +1,9 @@
 package com.example.test.client.model.request;
 
-import com.example.test.common.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +11,7 @@ import java.util.List;
 @Builder
 public class ValidatePrivilegeClientRequest {
 
-  private List<RoleEnum> roles;
+  private String serviceName;
 
-  private List<String> permissions;
+  private String operationId;
 }

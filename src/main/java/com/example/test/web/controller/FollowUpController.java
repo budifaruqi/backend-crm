@@ -13,7 +13,6 @@ import com.example.test.command.model.followUp.UpdateFollowUpByIdCommandRequest;
 import com.example.test.common.constant.ResponseType;
 import com.example.test.common.enums.FollowUpActivity;
 import com.example.test.common.enums.FollowUpStatus;
-import com.example.test.common.enums.RoleEnum;
 import com.example.test.common.helper.response.MicroserviceResponse;
 import com.example.test.common.helper.response.MicroserviceResponseHelper;
 import com.example.test.web.model.request.followUp.CreateFollowUpWebRequest;
@@ -24,6 +23,9 @@ import com.example.test.web.security.MustAuthenticated;
 import com.solusinegeri.command.helper.PagingHelper;
 import com.solusinegeri.command.reactive.executor.CommandExecutor;
 import com.solusinegeri.web.controller.reactive.BaseController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.extensions.Extension;
+import io.swagger.v3.oas.annotations.extensions.ExtensionProperty;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +41,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/crm/follow-up")
-@MustAuthenticated(userRole = {RoleEnum.sa})
 public class FollowUpController extends BaseController {
 
   public FollowUpController(CommandExecutor executor) {
@@ -47,6 +48,12 @@ public class FollowUpController extends BaseController {
   }
 
   @PostMapping
+  @Operation(summary = "Create Follow Up",
+      operationId = "create_follow_up",
+      tags = "Follow Up Management",
+      extensions = {@Extension(properties = {
+          @ExtensionProperty(name = "x-credentialLocations", value = "[\"system\", \"company\"]", parseValue = true)})})
+  @MustAuthenticated(operationId = "create_follow_up")
   public Mono<MicroserviceResponse<Object>> createFollowUp(AccessTokenParameter accessTokenParameter,
       @RequestBody CreateFollowUpWebRequest request) {
     CreateFollowUpCommandRequest commandRequest = CreateFollowUpCommandRequest.builder()
@@ -63,6 +70,12 @@ public class FollowUpController extends BaseController {
   }
 
   @GetMapping
+  @Operation(summary = "Get All Follow Up",
+      operationId = "get_all_follow_up",
+      tags = "Follow Up Management",
+      extensions = {@Extension(properties = {
+          @ExtensionProperty(name = "x-credentialLocations", value = "[\"system\", \"company\"]", parseValue = true)})})
+  @MustAuthenticated(operationId = "get_all_follow_up")
   public Mono<MicroserviceResponse<List<GetFollowUpWebResponse>>> getAllFollowUp(
       AccessTokenParameter accessTokenParameter, @RequestParam(required = false) String leadId,
       @RequestParam(required = false) FollowUpActivity activity, @RequestParam(required = false) FollowUpStatus status,
@@ -82,6 +95,12 @@ public class FollowUpController extends BaseController {
   }
 
   @GetMapping("/{id}")
+  @Operation(summary = "Get Follow Up by Id",
+      operationId = "get_follow_up_by_id",
+      tags = "Follow Up Management",
+      extensions = {@Extension(properties = {
+          @ExtensionProperty(name = "x-credentialLocations", value = "[\"system\", \"company\"]", parseValue = true)})})
+  @MustAuthenticated(operationId = "get_follow_up_by_id")
   public Mono<MicroserviceResponse<GetFollowUpWebResponse>> getFollowUpById(AccessTokenParameter accessTokenParameter,
       @PathVariable String id) {
     GetFollowUpByIdCommandRequest commandRequest = GetFollowUpByIdCommandRequest.builder()
@@ -95,6 +114,12 @@ public class FollowUpController extends BaseController {
   }
 
   @PutMapping("/{id}")
+  @Operation(summary = "Update Follow Up by Id",
+      operationId = "update_follow_up_by_id",
+      tags = "Follow Up Management",
+      extensions = {@Extension(properties = {
+          @ExtensionProperty(name = "x-credentialLocations", value = "[\"system\", \"company\"]", parseValue = true)})})
+  @MustAuthenticated(operationId = "update_follow_up_by_id")
   public Mono<MicroserviceResponse<Object>> updateFollowUpById(AccessTokenParameter accessTokenParameter,
       @PathVariable String id, @RequestBody UpdateFollowUpByIdWebRequest request) {
     UpdateFollowUpByIdCommandRequest commandRequest = UpdateFollowUpByIdCommandRequest.builder()
@@ -112,6 +137,12 @@ public class FollowUpController extends BaseController {
   }
 
   @DeleteMapping("/{id}")
+  @Operation(summary = "Delete Follow Up by Id",
+      operationId = "delete_follow_up_by_id",
+      tags = "Follow Up Management",
+      extensions = {@Extension(properties = {
+          @ExtensionProperty(name = "x-credentialLocations", value = "[\"system\", \"company\"]", parseValue = true)})})
+  @MustAuthenticated(operationId = "delete_follow_up_by_id")
   public Mono<MicroserviceResponse<Void>> deleteFollowUpById(AccessTokenParameter accessTokenParameter,
       @PathVariable String id) {
     DeleteFollowUpByIdCommandRequest commandRequest = DeleteFollowUpByIdCommandRequest.builder()

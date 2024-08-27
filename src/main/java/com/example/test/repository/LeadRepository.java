@@ -1,5 +1,6 @@
 package com.example.test.repository;
 
+import com.example.test.common.enums.LeadStatus;
 import com.example.test.repository.model.Lead;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
@@ -11,4 +12,7 @@ public interface LeadRepository extends ReactiveMongoRepository<Lead, String>, L
   Mono<Lead> findByDeletedFalseAndCompanyGroupIdAndName(String companyGroupId, String name);
 
   Mono<Boolean> existsByDeletedFalseAndCompanyGroupIdAndId(String companyGroupId, String externalId);
+
+  Mono<Boolean> existsByDeletedFalseAndCompanyGroupIdAndIdAndStatus(String companyGroupId, String externalId,
+      LeadStatus leadStatus);
 }

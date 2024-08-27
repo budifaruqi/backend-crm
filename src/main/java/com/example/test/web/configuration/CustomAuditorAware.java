@@ -18,7 +18,7 @@ public class CustomAuditorAware implements ReactiveAuditorAware<String> {
   public Mono<String> getCurrentAuditor() {
     AccessTokenParameter auditingData = auditingDataHolder.getAuditingData();
     if (auditingData != null) {
-      return Mono.justOrEmpty(auditingData.getName());
+      return Mono.justOrEmpty(auditingData.getAccountId());
     }
     return Mono.empty();
   }

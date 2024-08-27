@@ -64,8 +64,12 @@ public class CreateLeadCommandImpl implements CreateLeadCommand {
   }
 
   private Mono<Bank> checkBank(CreateLeadCommandRequest request) {
-    return bankRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), request.getBankId())
-        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.BANK_NOT_EXIST)));
+    if (request.getBankId() != null) {
+      return bankRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), request.getBankId())
+          .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.BANK_NOT_EXIST)));
+    }
+    return Mono.fromSupplier(() -> Bank.builder()
+        .build());
   }
 
   //NOTE : Belum Check Sales ID

@@ -4,6 +4,7 @@ import com.example.test.client.MembershipClient;
 import com.example.test.client.model.request.CreateExternalAccountClientRequest;
 import com.example.test.client.model.request.ValidatePrivilegeClientRequest;
 import com.example.test.client.model.response.AuthenticationClientResponse;
+import com.example.test.client.model.response.CreateExternalAccountClientResponse;
 import com.example.test.client.model.response.DetailClientResponse;
 import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.helper.response.exception.MicroserviceValidationException;
@@ -39,14 +40,13 @@ public class MembershipClientImpl extends BaseWebClient implements MembershipCli
   }
 
   @Override
-  public Mono<DetailClientResponse<AuthenticationClientResponse>> validatePrivilege(String companyId, String token,
+  public Mono<DetailClientResponse<AuthenticationClientResponse>> validatePrivilege(String token,
       ValidatePrivilegeClientRequest request) {
 
     return client.post()
-        .uri(uriBuilder -> uriBuilder.path("/auth/private/privilege")
+        .uri(uriBuilder -> uriBuilder.path("/auth/private/account/verify_endpoint")
             .build())
         .headers(httpHeaders -> {
-          httpHeaders.set("X-Asis-CompanyId", companyId);
           httpHeaders.set("Authorization", token);
         })
         .body(BodyInserters.fromValue(request))
@@ -60,7 +60,7 @@ public class MembershipClientImpl extends BaseWebClient implements MembershipCli
   }
 
   @Override
-  public Mono<DetailClientResponse<AuthenticationClientResponse>> createExternalUser(
+  public Mono<DetailClientResponse<CreateExternalAccountClientResponse>> createExternalUser(
       CreateExternalAccountClientRequest request) {
     return client.post()
         .uri(uriBuilder -> uriBuilder.path("/user/private/account_external/create_or_update")
@@ -70,7 +70,7 @@ public class MembershipClientImpl extends BaseWebClient implements MembershipCli
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(HttpStatusCode::isError, toErrorValidationClientResponse(ErrorCode.FAILED_CREATE_ACCOUNT))
-        .bodyToMono(new ParameterizedTypeReference<DetailClientResponse<AuthenticationClientResponse>>() {});
+        .bodyToMono(new ParameterizedTypeReference<DetailClientResponse<CreateExternalAccountClientResponse>>() {});
   }
 
   @Override

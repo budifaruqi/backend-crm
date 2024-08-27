@@ -4,18 +4,13 @@ import com.example.test.client.MembershipClient;
 import com.example.test.client.model.request.ValidatePrivilegeClientRequest;
 import com.example.test.client.model.response.AuthenticationClientResponse;
 import com.example.test.common.constant.ErrorCode;
-import com.example.test.common.enums.PermissionEnum;
-import com.example.test.common.enums.RoleEnum;
 import com.example.test.web.model.resolver.AccessTokenParameter;
 import com.example.test.web.model.resolver.RequestTokenAccess;
 import com.solusinegeri.common.model.exception.UnauthorizedException;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class MustAuthenticatedValidatorImpl implements MustAuthenticatedValidator {
@@ -38,9 +33,8 @@ public class MustAuthenticatedValidatorImpl implements MustAuthenticatedValidato
 
   private Mono<AccessTokenParameter> checkTokenToAuth(RequestTokenAccess tokenReq,
       MustAuthenticated mustAuthenticated) {
-    System.out.println(createRequest(mustAuthenticated.userRole(), mustAuthenticated.userPermission()));
-    return membershipClient.validatePrivilege(tokenReq.getCompanyId(), tokenReq.getToken(),
-            createRequest(mustAuthenticated.userRole(), mustAuthenticated.userPermission()))
+    System.out.println(createRequest(mustAuthenticated.operationId()));
+    return membershipClient.validatePrivilege(tokenReq.getToken(), createRequest(mustAuthenticated.operationId()))
         .flatMap(s -> Mono.fromSupplier(() -> s)
             .filter(response -> Objects.equals(response.getStatus_code(), "200"))
             .map(response -> toAccessTokenParameter(response.getData()))
@@ -50,11 +44,11 @@ public class MustAuthenticatedValidatorImpl implements MustAuthenticatedValidato
   private AccessTokenParameter toAccessTokenParameter(AuthenticationClientResponse data) {
     return AccessTokenParameter.builder()
         .accountId(data.getAccountId())
-        .companyGroupId(data.getCompanyGroupId())
+        .companyGroupId(data.getCompanyCategoryId())
         .companyId(data.getCompanyId())
         .companyGroupIdDefault(data.getCompanyGroupIdDefault())
         .companyIdDefault(data.getCompanyIdDefault())
-        .roles(data.getRoles())
+        .roleClaimed(data.getRoleClaimed())
         .permissions(data.getPermissions())
         .name(data.getName())
         .username(data.getUsername())
@@ -68,14 +62,10 @@ public class MustAuthenticatedValidatorImpl implements MustAuthenticatedValidato
         .build());
   }
 
-  private ValidatePrivilegeClientRequest createRequest(RoleEnum[] roleEnums, PermissionEnum[] permissionEnums) {
-    List<String> formattedPermissions = Arrays.stream(permissionEnums)
-        .map(permission -> "inventory:" + permission)
-        .collect(Collectors.toList());
-
+  private ValidatePrivilegeClientRequest createRequest(String operationId) {
     return ValidatePrivilegeClientRequest.builder()
-        .roles(Arrays.asList(roleEnums))
-        .permissions(formattedPermissions)
+        .serviceName("crm")
+        .operationId(operationId)
         .build();
   }
 

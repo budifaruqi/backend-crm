@@ -25,28 +25,29 @@ public class LeadRepositoryFilterImpl implements LeadRepositoryFilter {
   }
 
   @Override
-  public Mono<Long> countAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String city,
-      String province, String reference, LeadStatus status, Pageable pageable) {
-    Query query = getQuery(companyId, name, tagIds, city, province, reference, status, null);
+  public Mono<Long> countAllByDeletedFalseAndFilter(String companyGroupId, String name, List<String> tagIds,
+      String city, String province, String reference, LeadStatus status, Pageable pageable) {
+    Query query = getQuery(companyGroupId, name, tagIds, city, province, reference, status, null);
     return reactiveMongoTemplate.count(query, Lead.class, CollectionName.LEAD);
   }
 
   @Override
-  public Flux<Lead> findAllByDeletedFalseAndFilter(String companyId, String name, List<String> tagIds, String city,
+  public Flux<Lead> findAllByDeletedFalseAndFilter(String companyGroupId, String name, List<String> tagIds, String city,
       String province, String reference, LeadStatus status, Pageable pageable) {
-    Query query = getQuery(companyId, name, tagIds, city, province, reference, status, pageable);
+    Query query = getQuery(companyGroupId, name, tagIds, city, province, reference, status, pageable);
     return reactiveMongoTemplate.find(query, Lead.class, CollectionName.LEAD);
   }
 
-  private Query getQuery(String companyId, String name, List<String> tagIds, String city, String province,
+  private Query getQuery(String companyGroupId, String name, List<String> tagIds, String city, String province,
       String reference, LeadStatus status, Pageable pageable) {
     QueryBuilder queryBuilder = QueryBuilder.create()
         .andEqual("deleted", false)
-        .andEqual("companyId", companyId)
+        .andEqual("companyGroupId", companyGroupId)
         .andEqual("status", status)
         .andLikeIgnoreCase("city", city)
         .andLikeIgnoreCase("province", province)
         .andLikeIgnoreCase("reference", reference)
+        .andIn("tags", tagIds)
         .andLikeIgnoreCase("name", name);
 
     Query query = queryBuilder.build();

@@ -36,6 +36,7 @@
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/lead/GetLeadByIdCommandRequest.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/bank/GetAllBankCommand.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/partner/DeletePartnerByIdCommandRequest.java
+/home/lenovo/Documents/backend-crm/src/main/java/com/example/test/client/model/response/CreateExternalAccountClientResponse.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/leadTag/UpdateLeadTagByIdCommand.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/lead/UpdateLeadStatusByIdCommandRequest.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/repository/impl/FollowUpRepositoryFilterImpl.java
@@ -141,6 +142,7 @@
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/partner/CreatePartnerCommandRequest.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/bank/UpdateBankByIdCommand.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/followUp/CreateFollowUpCommandRequest.java
+/home/lenovo/Documents/backend-crm/src/main/java/com/example/test/common/vo/CompanyCategoryVO.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/potentialLead/DeletePotentialLeadCommandRequest.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/followUp/GetAllFollowUpCommand.java
 /home/lenovo/Documents/backend-crm/src/main/java/com/example/test/command/model/potentialLead/UpdatePotentialLeadStatusByIdCommandRequest.java

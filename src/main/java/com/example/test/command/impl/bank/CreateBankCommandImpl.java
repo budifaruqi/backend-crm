@@ -3,6 +3,7 @@ package com.example.test.command.impl.bank;
 import com.example.test.command.bank.CreateBankCommand;
 import com.example.test.command.model.bank.CreateBankCommandRequest;
 import com.example.test.common.constant.ErrorCode;
+import com.example.test.common.enums.BankType;
 import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.BankRepository;
 import com.example.test.repository.model.Bank;
@@ -24,6 +25,7 @@ public class CreateBankCommandImpl implements CreateBankCommand {
   @Override
   public Mono<GetBankWebResponse> execute(CreateBankCommandRequest request) {
     return Mono.defer(() -> checkName(request))
+        .flatMap(s -> checkParent(request))
         .map(s -> toBank(request))
         .flatMap(bankRepository::save)
         .map(this::toGetWebResponse);
@@ -35,6 +37,14 @@ public class CreateBankCommandImpl implements CreateBankCommand {
             .build()))
         .filter(s -> !Objects.equals(s.getName(), request.getName()))
         .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.NAME_ALREADY_USED)));
+  }
+
+  private Mono<Bank> checkParent(CreateBankCommandRequest request) {
+    if (request.getType() != BankType.PUSAT) {
+      return bankRepository.findByDeletedFalseAndCompanyGroupIdAndId(request.getCompanyGroupId(), request.getParentId())
+          .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARENT_NOT_EXIST)));
+    }
+    return null;
   }
 
   private Bank toBank(CreateBankCommandRequest request) {

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -60,7 +59,11 @@ public class GetAllLeadCommandImpl implements GetAllLeadCommand {
     return leadRepository.findAllByDeletedFalseAndFilter(request.getCompanyGroupId(), request.getLeadName(),
             request.getTagIds(), request.getCity(), request.getProvince(), request.getReference(), request.getStatus(),
             request.getPageable())
-        .filter(lead -> new HashSet<>(lead.getTags()).containsAll(request.getTagIds()));
+        .map(s -> {
+          System.out.println(s);
+          System.out.println(request);
+          return s;
+        });
   }
 
   private Mono<Bank> getBank(Lead lead) {

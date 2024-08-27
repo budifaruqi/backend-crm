@@ -6,7 +6,6 @@ import com.example.test.common.constant.ErrorCode;
 import com.example.test.common.helper.response.exception.MicroserviceValidationException;
 import com.example.test.repository.LeadTagRepository;
 import com.example.test.repository.model.LeadTag;
-import com.example.test.web.configuration.CustomAuditorAware;
 import com.example.test.web.model.response.leadTag.GetLeadTagWebResponse;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -18,11 +17,8 @@ public class CreateLeadTagCommandImpl implements CreateLeadTagCommand {
 
   private final LeadTagRepository leadTagRepository;
 
-  private final CustomAuditorAware customAuditorAware;
-
-  public CreateLeadTagCommandImpl(LeadTagRepository leadTagRepository, CustomAuditorAware customAuditorAware) {
+  public CreateLeadTagCommandImpl(LeadTagRepository leadTagRepository) {
     this.leadTagRepository = leadTagRepository;
-    this.customAuditorAware = customAuditorAware;
   }
 
   @Override

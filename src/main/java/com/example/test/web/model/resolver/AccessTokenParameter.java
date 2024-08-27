@@ -25,7 +25,7 @@ public class AccessTokenParameter {
 
   private String companyIdDefault;
 
-  private List<RoleVO> roles;
+  private List<RoleVO> roleClaimed;
 
   private List<PermissionVO> permissions;
 

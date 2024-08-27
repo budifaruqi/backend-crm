@@ -31,7 +31,7 @@ public class DeletePartnerByIdCommandImpl implements DeletePartnerByIdCommand {
 
   private Mono<Partner> findPartner(DeletePartnerByIdCommandRequest request) {
     return partnerRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARTNER_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARENT_NOT_EXIST)));
   }
 
   private Mono<Partner> checkRequest(UpdatePartnerByIdCommandRequest request) {

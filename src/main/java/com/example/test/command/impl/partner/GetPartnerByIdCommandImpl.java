@@ -27,7 +27,7 @@ public class GetPartnerByIdCommandImpl implements GetPartnerByIdCommand {
 
   private Mono<Partner> findTag(GetPartnerByIdCommandRequest request) {
     return partnerRepository.findByDeletedFalseAndCompanyIdAndId(request.getCompanyId(), request.getId())
-        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARTNER_NOT_EXIST)));
+        .switchIfEmpty(Mono.error(new MicroserviceValidationException(ErrorCode.PARENT_NOT_EXIST)));
   }
 
   private GetPartnerWebResponse toGetWebResponse(Partner partner) {

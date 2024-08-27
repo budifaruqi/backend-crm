@@ -1,7 +1,6 @@
 package com.example.test.web.security;
 
 import com.example.test.common.enums.PermissionEnum;
-import com.example.test.common.enums.RoleEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface MustAuthenticated {
 
-  RoleEnum[] userRole();
+  String operationId();
 
   PermissionEnum[] userPermission() default {};
 
